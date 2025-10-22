@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" class="h-full">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="COMP 3007 Fall 2025" />
+        <title>{{.Title}} | COMP 3007</title>
+
+        {{template "scripts.html" .}} {{template "styles.html" .}}
+    </head>
+    <body
+        class="h-full bg-gradient-to-br from-slate-50 to-slate-100 text-slate-900"
+        hx-boost="true"
+    >
+        <div class="min-h-full flex flex-col">
+            {{template "navigation.html" .}}
+
+            <main class="flex-1">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <div
+                        class="bg-white/70 backdrop-blur-sm shadow-xl rounded-2xl border border-white/20 overflow-hidden"
+                    >
+                        <div class="p-8 md:p-12">
+                            <div class="content prose prose-slate prose-lg max-w-none">
+                                {{.Content}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <script>
+            // Simple HTMX error handling
+            document.body.addEventListener("htmx:responseError", function (evt) {
+                console.error("HTMX Response Error:", evt.detail);
+                if (evt.detail.xhr.status === 404) {
+                    window.location.href = evt.detail.pathInfo.requestPath;
+                }
+            });
+
+            document.body.addEventListener("htmx:sendError", function (evt) {
+                console.error("HTMX Send Error:", evt.detail);
+                window.location.href = evt.detail.pathInfo.requestPath;
+            });
+
+            document.body.addEventListener("htmx:timeout", function (evt) {
+                console.error("HTMX Timeout:", evt.detail);
+                window.location.href = evt.detail.pathInfo.requestPath;
+            });
+        </script>
+    </body>
+</html>

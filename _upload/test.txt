@@ -1,0 +1,9 @@
+This is a test file for demonstrating the upload program.
+
+It contains some sample text that can be used to test the PUT request functionality.
+
+File created for testing purposes.
+Line 1: Hello World!
+Line 2: This is a multi-line test file.
+Line 3: Testing upload to comp3007-f25.scs.carleton.ca
+Line 4: End of test content.

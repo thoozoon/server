@@ -1,0 +1,53 @@
+<!-- Modern empty state component -->
+<div class="text-center py-16 px-8">
+    <!-- Animated icon container -->
+    <div class="relative mb-8">
+        <div class="w-24 h-24 mx-auto bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl flex items-center justify-center shadow-inner animate-float">
+            <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+        </div>
+
+        <!-- Decorative elements -->
+        <div class="absolute -top-2 -right-2 w-6 h-6 bg-brand-100 rounded-full animate-pulse"></div>
+        <div class="absolute -bottom-1 -left-1 w-4 h-4 bg-accent-100 rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="max-w-md mx-auto">
+        <h3 class="text-2xl font-semibold text-slate-700 mb-3">
+            {{if .EmptyTitle}}{{.EmptyTitle}}{{else}}No Content Available{{end}}
+        </h3>
+
+        <p class="text-slate-500 mb-8 leading-relaxed">
+            {{if .EmptyMessage}}{{.EmptyMessage}}{{else}}This section doesn't have any content yet. Check back later for updates.{{end}}
+        </p>
+
+        <!-- Action suggestions -->
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <button onclick="window.history.back()"
+                    class="inline-flex items-center justify-center px-6 py-3 bg-white border border-slate-200 rounded-xl text-slate-600 hover:text-slate-800 hover:border-slate-300 hover:shadow-md transition-all duration-200 focus-ring">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Go Back
+            </button>
+
+            <a href="/"
+               class="inline-flex items-center justify-center px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-xl hover:shadow-md transition-all duration-200 focus-ring"
+               hx-boost="true">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Subtle background decoration -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-br from-brand-50 to-transparent rounded-full opacity-30 blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-24 h-24 bg-gradient-to-br from-accent-50 to-transparent rounded-full opacity-30 blur-2xl"></div>
+    </div>
+</div>

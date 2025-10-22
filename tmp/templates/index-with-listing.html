@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" class="h-full">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="{{.Title}} - Course 3007" />
+        <title>{{.Title}} | Course 3007</title>
+
+        {{template "scripts.html" .}} {{template "styles.html" .}}
+    </head>
+    <body
+        class="h-full bg-gradient-to-br from-slate-50 to-slate-100 text-slate-900"
+        hx-boost="true"
+    >
+        <div class="min-h-full flex flex-col">
+            {{template "navigation.html" .}}
+
+            <main class="flex-1">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <!-- Main content area -->
+                    <div
+                        class="bg-white/70 backdrop-blur-sm shadow-xl rounded-2xl border border-white/20 overflow-hidden mb-12"
+                    >
+                        <div class="p-8 md:p-12">
+                            <div class="content prose prose-slate prose-lg max-w-none">
+                                {{.Content}}
+                            </div>
+                        </div>
+                    </div>
+
+                    {{if .Files}}
+                    <!-- File listing section -->
+                    <div
+                        class="bg-white/60 backdrop-blur-sm shadow-xl rounded-2xl border border-white/20 overflow-hidden"
+                    >
+                        <!-- Files grid -->
+                        <div class="p-8">
+                            <div
+                                class="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 animate-stagger"
+                            >
+                                {{range .Files}} {{template "file-card.html" .}} {{end}}
+                            </div>
+                        </div>
+                    </div>
+                    {{end}}
+
+                    <!-- Navigation helpers -->
+                    <div class="mt-12 text-center">
+                        <div
+                            class="inline-flex items-center space-x-4 bg-white/50 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20"
+                        >
+                            <a
+                                href="/"
+                                class="flex items-center space-x-2 text-slate-600 hover:text-brand-600 transition-colors focus-ring px-3 py-1 rounded-lg"
+                                hx-boost="true"
+                            >
+                                <svg
+                                    class="w-4 h-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                                    ></path>
+                                </svg>
+                                <span class="text-sm font-medium">Back to Home</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

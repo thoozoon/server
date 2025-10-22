@@ -1,0 +1,110 @@
+<!-- Modern footer component -->
+<footer class="mt-auto bg-slate-900/95 backdrop-blur-md border-t border-slate-800/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Brand section -->
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-400 to-brand-600 rounded-xl shadow-glow flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">3</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Course 3007</h3>
+                        <p class="text-sm text-slate-400">Advanced Computer Science</p>
+                    </div>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Explore advanced topics in computer science through hands-on assignments,
+                    comprehensive lectures, and practical applications.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-4">
+                <h4 class="text-white font-semibold">Quick Links</h4>
+                <nav class="space-y-2">
+                    <a href="/"
+                       class="block text-slate-300 hover:text-brand-400 transition-colors text-sm focus-ring rounded px-1"
+                       hx-boost="true">
+                        Home
+                    </a>
+                    <a href="/assignments"
+                       class="block text-slate-300 hover:text-brand-400 transition-colors text-sm focus-ring rounded px-1"
+                       hx-boost="true">
+                        Assignments
+                    </a>
+                    <a href="/quizzes"
+                       class="block text-slate-300 hover:text-brand-400 transition-colors text-sm focus-ring rounded px-1"
+                       hx-boost="true">
+                        Quizzes
+                    </a>
+                    <a href="/lectures"
+                       class="block text-slate-300 hover:text-brand-400 transition-colors text-sm focus-ring rounded px-1"
+                       hx-boost="true">
+                        Lectures
+                    </a>
+                    <a href="/references"
+                       class="block text-slate-300 hover:text-brand-400 transition-colors text-sm focus-ring rounded px-1"
+                       hx-boost="true">
+                        References
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Course Info -->
+            <div class="space-y-4">
+                <h4 class="text-white font-semibold">Course Information</h4>
+                <div class="space-y-3 text-sm">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="text-slate-300">Updated regularly</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="text-slate-300">Need help? Check office hours</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="text-slate-300">All materials available online</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom section -->
+        <div class="mt-8 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div class="text-slate-400 text-sm">
+                <p>&copy; 2024 Course 3007. Built with modern web technologies.</p>
+            </div>
+
+            <div class="flex items-center space-x-4 text-sm text-slate-400">
+                <div class="flex items-center space-x-1">
+                    <span>Powered by</span>
+                    <span class="text-brand-400 font-medium">HTMX</span>
+                    <span>&</span>
+                    <span class="text-brand-400 font-medium">Tailwind CSS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll to top button -->
+        <div class="mt-8 text-center">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                    class="inline-flex items-center space-x-2 px-4 py-2 bg-slate-800/50 hover:bg-slate-700/50 text-slate-300 hover:text-white rounded-full transition-all duration-200 focus-ring border border-slate-700/50">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                </svg>
+                <span class="text-sm">Back to Top</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Decorative gradient line -->
+    <div class="h-1 bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600"></div>
+</footer>

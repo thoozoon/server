@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" class="h-full">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="{{.Title}} - Course 3007" />
+        <title>{{.Title}} | COMP 3007</title>
+
+        {{template "scripts.html" .}} {{template "styles.html" .}}
+    </head>
+    <body class="h-full bg-white text-gray-900" hx-boost="true">
+        <div class="min-h-full">
+            {{template "navigation.html" .}}
+
+            <main>
+                <div class="max-w-4xl mx-auto px-4 py-8">
+                    <!-- Main content -->
+                    <div class="prose prose-lg max-w-none mb-12">{{.Content}}</div>
+
+                    {{if .Files}}
+                    <!-- File listing -->
+                    <div class="border-t border-gray-200 pt-8">
+                        <ul class="space-y-2">
+                            {{range .Files}}
+                            <li>
+                                <a
+                                    href="{{.Path}}"
+                                    class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                                    hx-boost="true"
+                                >
+                                    {{.DisplayName}}
+                                </a>
+                            </li>
+                            {{end}}
+                        </ul>
+                    </div>
+                    {{end}}
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

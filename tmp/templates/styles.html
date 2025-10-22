@@ -1,0 +1,161 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+/>
+
+<style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: theme("colors.slate.100");
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, theme("colors.brand.400"), theme("colors.brand.600"));
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, theme("colors.brand.500"), theme("colors.brand.700"));
+    }
+
+    /* Enhanced focus styles for accessibility */
+    .focus-ring {
+        @apply focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-all duration-200;
+    }
+
+    /* Card hover effects */
+    .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow:
+            0 20px 40px -10px rgba(0, 0, 0, 0.1),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Gradient backgrounds */
+    .bg-gradient-subtle {
+        background: linear-gradient(
+            135deg,
+            theme("colors.slate.50") 0%,
+            theme("colors.white") 50%,
+            theme("colors.slate.50") 100%
+        );
+    }
+
+    /* Animation classes */
+    .animate-fade-in-up {
+        animation: fade-in-up 0.6s ease-out forwards;
+    }
+
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-stagger > * {
+        opacity: 0;
+        animation: fade-in-up 0.6s ease-out forwards;
+    }
+
+    .animate-stagger > *:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+    .animate-stagger > *:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    .animate-stagger > *:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+    .animate-stagger > *:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+    .animate-stagger > *:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+    .animate-stagger > *:nth-child(6) {
+        animation-delay: 0.6s;
+    }
+
+    /* Smooth content transitions */
+    .htmx-swapping {
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+            opacity 0.2s ease-out,
+            transform 0.2s ease-out;
+    }
+
+    /* Print styles */
+    @media print {
+        .htmx-indicator,
+        nav,
+        .no-print,
+        footer {
+            display: none !important;
+        }
+
+        .prose {
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 12pt;
+            line-height: 1.4;
+        }
+
+        .prose h1,
+        .prose h2,
+        .prose h3 {
+            page-break-after: avoid;
+            color: black !important;
+            background: none !important;
+            -webkit-text-fill-color: initial !important;
+        }
+
+        .prose pre,
+        .prose blockquote {
+            page-break-inside: avoid;
+            border: 1px solid #ddd;
+        }
+
+        .prose a {
+            color: black !important;
+            text-decoration: underline !important;
+            background: none !important;
+        }
+    }
+
+    /* Dark mode support (future enhancement) */
+    @media (prefers-color-scheme: dark) {
+        .dark-mode-auto {
+            @apply bg-slate-900 text-slate-100;
+        }
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+</style>

@@ -1,0 +1,15 @@
+This is a test file located in a subdirectory.
+
+It's used to verify that the upload client correctly handles file paths
+by extracting just the base filename when uploading to the server.
+
+When uploading this file with:
+  go run upload_local.go testdata/subdir_test.txt
+
+The client should:
+1. Read the file from testdata/subdir_test.txt
+2. Extract the base filename: subdir_test.txt
+3. Upload to: /files/subdir_test.txt
+4. Server should save it as: uploads/subdir_test.txt
+
+This tests the filepath.Base() functionality in the modified client.
