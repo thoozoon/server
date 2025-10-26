@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en" class="h-full">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="COMP 3007 Manage Users" />
+        <title>Manage Users | COMP 3007</title>
+
+        {{template "scripts.html" .}} {{template "styles.html" .}}
+    </head>
+    <body class="h-full bg-white text-gray-900">
+        <div class="min-h-full">
+            {{template "navigation.html" .}}
+
+            <main>
+                <div class="max-w-6xl mx-auto px-4 py-8">
+                    <div class="bg-white border border-gray-200 rounded-lg p-8">
+                        <div class="flex justify-between items-center mb-8">
+                            <div>
+                                <h1 class="text-2xl font-semibold text-gray-900 mb-2">Manage Users</h1>
+                                <p class="text-gray-600">View and manage all system users</p>
+                            </div>
+                            <a
+                                href="/admin/add-users"
+                                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                            >
+                                Add Users
+                            </a>
+                        </div>
+
+                        {{if .Error}}
+                        <div class="mb-6 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                            <p class="text-sm">{{.Error}}</p>
+                        </div>
+                        {{end}}
+
+                        {{if .Success}}
+                        <div class="mb-6 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+                            <p class="text-sm">{{.Success}}</p>
+                        </div>
+                        {{end}}
+
+                        <!-- Statistics -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-blue-600">Total Users</p>
+                                        <p class="text-2xl font-semibold text-blue-900">{{.TotalUsers}}</p>
+                                    </div>
+                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-green-600">Setup Complete</p>
+                                        <p class="text-2xl font-semibold text-green-900">{{.SetupUsers}}</p>
+                                    </div>
+                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-yellow-600">Pending Setup</p>
+                                        <p class="text-2xl font-semibold text-yellow-900">{{.PendingUsers}}</p>
+                                    </div>
+                                    <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Filters and Search -->
+                        <div class="mb-6 flex flex-wrap gap-4 items-center">
+                            <div class="flex-1 min-w-64">
+                                <input
+                                    type="text"
+                                    id="searchInput"
+                                    placeholder="Search users by email..."
+                                    class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                                />
+                            </div>
+                            <div class="flex gap-2">
+                                <select
+                                    id="statusFilter"
+                                    class="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                                >
+                                    <option value="">All Status</option>
+                                    <option value="setup">Setup Complete</option>
+                                    <option value="pending">Pending Setup</option>
+                                </select>
+                                <select
+                                    id="roleFilter"
+                                    class="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white"
+                                >
+                                    <option value="">All Roles</option>
+                                    <option value="admin">Admins</option>
+                                    <option value="user">Users</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Users Table -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse">
+                                <thead>
+                                    <tr class="border-b border-gray-200">
+                                        <th class="text-left py-3 px-4 font-medium text-gray-900">Email</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-900">Role</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-900">Status</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-900">Created</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-900">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody">
+                                    {{range .Users}}
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50 user-row"
+                                        data-email="{{.Email}}"
+                                        data-status="{{if .IsSetup}}setup{{else}}pending{{end}}"
+                                        data-role="{{if .IsAdmin}}admin{{else}}user{{end}}">
+                                        <td class="py-3 px-4">
+                                            <div class="flex items-center">
+                                                <div>
+                                                    <div class="text-sm font-medium text-gray-900">{{.Email}}</div>
+                                                    {{if not .IsSetup}}
+                                                    <div class="text-xs text-gray-500">Invitation sent</div>
+                                                    {{end}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4">
+                                            {{if .IsAdmin}}
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                                Admin
+                                            </span>
+                                            {{else}}
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                                User
+                                            </span>
+                                            {{end}}
+                                        </td>
+                                        <td class="py-3 px-4">
+                                            {{if .IsSetup}}
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Active
+                                            </span>
+                                            {{else}}
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                Pending
+                                            </span>
+                                            {{end}}
+                                        </td>
+                                        <td class="py-3 px-4 text-sm text-gray-500">
+                                            {{.CreatedAt.Format "Jan 2, 2006"}}
+                                        </td>
+                                        <td class="py-3 px-4">
+                                            <div class="flex items-center space-x-2">
+                                                {{if not .IsSetup}}
+                                                <form method="POST" action="/admin/resend-setup-email" class="inline">
+                                                    <input type="hidden" name="user_id" value="{{.ID}}" />
+                                                    <button
+                                                        type="submit"
+                                                        class="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
+                                                        onclick="return confirm('Resend setup email to {{.Email}}?')"
+                                                    >
+                                                        Resend Email
+                                                    </button>
+                                                </form>
+                                                {{end}}
+
+                                                <button
+                                                    onclick="showUserDetails({{.ID}}, '{{.Email}}', {{.IsAdmin}}, {{.IsSetup}}, '{{.CreatedAt.Format "Jan 2, 2006 15:04"}}')"
+                                                    class="text-gray-600 hover:text-gray-800 text-sm font-medium transition-colors"
+                                                >
+                                                    Details
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{else}}
+                                    <tr>
+                                        <td colspan="5" class="py-8 px-4 text-center text-gray-500">
+                                            <div class="flex flex-col items-center">
+                                                <svg class="w-12 h-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                                                </svg>
+                                                <p class="text-lg font-medium">No users found</p>
+                                                <p class="text-sm">Start by adding some users to the system</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="flex flex-wrap gap-4 pt-6 mt-6 border-t border-gray-200">
+                            <a
+                                href="/admin/add-users"
+                                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                            >
+                                Add Users
+                            </a>
+                            <a
+                                href="/"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
+                            >
+                                Back to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- User Details Modal -->
+        <div id="userDetailsModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">User Details</h3>
+                    <button onclick="hideUserDetails()" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="userDetailsContent" class="space-y-4">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Search and filter functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const searchInput = document.getElementById('searchInput');
+                const statusFilter = document.getElementById('statusFilter');
+                const roleFilter = document.getElementById('roleFilter');
+                const userRows = document.querySelectorAll('.user-row');
+
+                function filterUsers() {
+                    const searchTerm = searchInput.value.toLowerCase();
+                    const statusValue = statusFilter.value;
+                    const roleValue = roleFilter.value;
+
+                    userRows.forEach(row => {
+                        const email = row.dataset.email.toLowerCase();
+                        const status = row.dataset.status;
+                        const role = row.dataset.role;
+
+                        const matchesSearch = email.includes(searchTerm);
+                        const matchesStatus = !statusValue || status === statusValue;
+                        const matchesRole = !roleValue || role === roleValue;
+
+                        if (matchesSearch && matchesStatus && matchesRole) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+
+                searchInput.addEventListener('input', filterUsers);
+                statusFilter.addEventListener('change', filterUsers);
+                roleFilter.addEventListener('change', filterUsers);
+            });
+
+            function showUserDetails(id, email, isAdmin, isSetup, createdAt) {
+                const modal = document.getElementById('userDetailsModal');
+                const content = document.getElementById('userDetailsContent');
+
+                content.innerHTML = `
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <p class="mt-1 text-sm text-gray-900">${email}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Role</label>
+                            <p class="mt-1 text-sm text-gray-900">${isAdmin ? 'Administrator' : 'User'}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Status</label>
+                            <p class="mt-1 text-sm text-gray-900">${isSetup ? 'Account Active' : 'Setup Pending'}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Created</label>
+                            <p class="mt-1 text-sm text-gray-900">${createdAt}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">User ID</label>
+                            <p class="mt-1 text-sm text-gray-900">#${id}</p>
+                        </div>
+                    </div>
+                `;
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            function hideUserDetails() {
+                const modal = document.getElementById('userDetailsModal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+
+            // Close modal on outside click
+            document.getElementById('userDetailsModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideUserDetails();
+                }
+            });
+
+            // Handle form submissions
+            document.querySelectorAll('form[action="/admin/resend-setup-email"]').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Sending...';
+
+                    // Re-enable button after 3 seconds as fallback
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalText;
+                    }, 3000);
+                });
+            });
+        </script>
+    </body>
+</html>

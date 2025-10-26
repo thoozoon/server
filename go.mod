@@ -3,7 +3,10 @@ module server
 go 1.24
 
 require (
-	github.com/gomarkdown/markdown v0.0.0-20231222211730-1d6d20845b47
+	github.com/BurntSushi/toml v1.5.0
+	github.com/golang-jwt/jwt/v5 v5.0.0
+	github.com/gomarkdown/markdown v0.0.0-20250810172220-2e2c11897d1a
+	github.com/mattn/go-sqlite3 v1.14.17
 	golang.org/x/crypto v0.41.0
 )
 

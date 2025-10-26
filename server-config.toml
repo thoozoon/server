@@ -1,0 +1,9 @@
+site_dir = "/Users/howe/Documents/teaching/3007/website"
+port = "8080"
+uploads_allowed  =  true
+secret = "fioD0aiZeer6ahzoovohs7Asheishepaefei8ue1taecuzohph8eeyaiphiel3oh"
+uploads_dir = "uploads"
+db_path = "users.db"
+resend_api_key = "re_SQV59dB5_99r4hPfyMPucSXSUHqkGWwXe"
+resend_from_email = "mail@doughowe.ca"
+auth_disabled = true
