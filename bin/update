@@ -27,3 +27,5 @@ git archive --format=tar HEAD |
 
 # Copy server-config.toml.
 scp "../deploy/server-config.toml" comp3007@howe:/opt/comp3007/server
+
+ssh comp3007@howe /opt/comp3007/server/bin/update-serverside

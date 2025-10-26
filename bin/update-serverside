@@ -2,6 +2,8 @@
 
 #
 
+cd /opt/comp3007/server || exit 1
+
 go build .
 
 # Health check binary exists
