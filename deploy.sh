@@ -1,20 +1,6 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
-APP_DIR="/opt/comp3007/server"
-SITE_DIR="/opt/comp3007/site"
-
-cd "$SITE_DIR"
-# Ensure we’re on master and clean
-git fetch --all --prune
-git checkout master
-git reset --hard origin/master
-
-cd "$APP_DIR"
-# Ensure we’re on master and clean
-git fetch --all --prune
-git checkout master
-git reset --hard origin/master
+#
 
 go build .
 
