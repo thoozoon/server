@@ -177,6 +177,7 @@ func setupRouting() {
 	http.HandleFunc("/login", handleLogin)
 	http.HandleFunc("/setup", handleSetup)
 	http.HandleFunc("/logout", handleLogout)
+	http.HandleFunc("/health", healthHandler)
 
 	// Protected routes
 	http.HandleFunc("/", authManager.RequireAuth(handleAll))
@@ -190,9 +191,15 @@ func setupRouting() {
 	// Upload route
 	if config.UploadsAllowed {
 		url := filepath.Join(uploadRequestURL(), "{filename}")
-		fmt.Print("Adding handler for: ", url)
 		http.HandleFunc(url, authManager.RequireAuth(handleUpload))
 	}
+}
+
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+	// Respond with a simple 200 OK
+	w.Header().Set("Content-Type", "text/plain")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintln(w, "OK")
 }
 
 func uploadRequestURL() string {

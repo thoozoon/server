@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+URL="${1:-http://comp3007-fall25.scs.carleton.ca/health}"
+
+if [[ -v SERVER_HOST ]]; then
+    URL="$SERVER_HOST/health"
+else
+    echo "SERVER_HOST is not set."
+    exit 1
+fi
+
+# Perform the check
+STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+
+if [ "$STATUS_CODE" -eq 200 ]; then
+    echo "Health check passed ($URL returned 200)"
+    exit 0
+else
+    echo "Health check failed ($URL returned $STATUS_CODE)"
+    exit 1
+fi
