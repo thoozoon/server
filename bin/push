@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [ ! -n "$1" ]; then
+    echo "Error: git commit message required."
+    exit 1
+fi
+
+cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 1
+
+echo "Committing and pushing $(basename $PWD)"
+
+git add .
+git commit -a -m "$1"
+git push

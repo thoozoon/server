@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"fmt"
@@ -118,13 +118,7 @@ const serverConfigFname = "server-config.toml"
 var config *Config
 var authManager *AuthManager
 
-func init() {
-	if len(os.Args) != 2 {
-		panic("Expected config file path as command-line argument.")
-	}
-
-	// Initialize config from toml files
-	serverConfigFile := os.Args[1]
+func Init(serverConfigFile string) {
 	var serverConfig ServerConfig
 	var siteConfig SiteConfig
 	_, err := toml.DecodeFile(serverConfigFile, &serverConfig)
@@ -166,7 +160,8 @@ func init() {
 	setupRouting()
 }
 
-func main() {
+func Run(serverConfigFile string) {
+	Init(serverConfigFile)
 	fmt.Println("Server starting on port " + config.Port)
 	log.Print(http.ListenAndServe(":"+config.Port, nil))
 }

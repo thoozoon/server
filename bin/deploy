@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+EXPECTED_LOCAL_DIR="/Users/howe/Documents/software/server"
+DESTINATION="comp3007@howe"
+DESTINATION_DIR="/opt/comp3007/test"
+SERVER_CONFIG="../configs/server-config-scs.toml"
+
+# script_home="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ "$PWD" != "$EXPECTED_LOCAL_DIR" ]; then
+    echo "Error: must be run from $EXPECTED" >&2
+    exit 1
+fi
+
+# Copy the current server code to the host. Sends an "archive", i.e. a copy meeting the export restrictons in
+# .gitattributes. Uses some hacks to avoid passing back the temp file name, which we'd have to cut out from
+# Peter's obligatory message for all ssh connections.
+echo "Copying server code to host"
+tmpfile=$(mktemp)
+git archive --format=tgz HEAD >$tmpfile
+scp "$tmpfile" "$DESTINATION:/tmp/fleabag.tgz" >/dev/null 2>&1
+ssh "$DESTINATION" "tar -xzf /tmp/fleabag.tgz -C $DESTINATION_DIR" >/dev/null 2>&1
+
+echo "Copying server config file to host"
+scp "$SERVER_CONFIG" "$DESTINATION:$DESTINATION_DIR"
+
+echo "Rebuild and restart server"
+ssh $DESTINATION "cd $DESTINATION_DIR; go build .; sudo systemctl restart comp3007;\
+sudo systemctl status --no-pager comp3007 || true"
